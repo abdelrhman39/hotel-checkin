@@ -1,0 +1,26 @@
+[
+    {
+        "angieReservationId": "8WVngEdsE2jPMNhPvQWaJHMxaQAz",
+        "reservationNumber": "21026547",
+        "confirmationNumber": "21026606",
+        "arrivalDate": "2025-06-25T00:00:00Z",
+        "departureDate": "2025-06-27T00:00:00Z",
+        "nrNights": 2,
+        "lastName": "Newman",
+        "firstName": "Janice",
+        "invitedForCO": true,
+        "roomImage": "ExecutiveBedroom.jpg",
+        "roomTypeDescription": "Executive Room",
+        "hasRoomNumber": true,
+        "isKioskDueIn": false,
+        "isOnlineDueIn": true,
+        "isDueOut": false,
+        "expired": false,
+        "canAccessCheckIn": true,
+        "canAccessKioskKeyPickUp": true,
+        "canAccessKioskNewKey": false,
+        "canAccessCheckOut": false,
+        "isQueued": false,
+        "isResvRestrictionEligible": true
+    }
+]
