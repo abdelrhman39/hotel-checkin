@@ -296,483 +296,483 @@
 <div class="container mb-5 pb-5">
     <div class="row">
         <div class="col-md-8 step4-form-area px-4">
-            <div class="step4-title">Review & complete</div>
-            <div class="step4-subtitle">the following form</div>
-            <div class="step4-section-title">Personal information</div>
-            @if($step4Section === 'personal' || !$personalInfoCompleted)
-                <form class="step4-form-box" wire:submit.prevent="validatePersonalInfoAndNext">
-                    <div class="step4-form-group @error('personalInfo.first_name') is-invalid @enderror" style="position:relative;">
-                        <label class="step4-form-label">First name</label>
-                        <input type="text" class="step4-form-input" wire:model.lazy="personalInfo.first_name" />
-                        @error('personalInfo.first_name')
+        <div class="step4-title">Review & complete</div>
+        <div class="step4-subtitle">the following form</div>
+        <div class="step4-section-title">Personal information</div>
+        @if($step4Section === 'personal' || !$personalInfoCompleted)
+            <form class="step4-form-box" wire:submit.prevent="validatePersonalInfoAndNext">
+                <div class="step4-form-group @error('personalInfo.first_name') is-invalid @enderror" style="position:relative;">
+                    <label class="step4-form-label">First name</label>
+                    <input type="text" class="step4-form-input" wire:model.lazy="personalInfo.first_name" />
+                    @error('personalInfo.first_name')
+                        <span class="input-error-icon" style="position:absolute; right:10px; top:65%; transform:translateY(-50%); color:#e53935;">&#9888;</span>
+                    @enderror
+                </div>
+                <div class="step4-form-group @error('personalInfo.last_name') is-invalid @enderror" style="position:relative;">
+                    <label class="step4-form-label">Last name</label>
+                    <input type="text" class="step4-form-input" readonly wire:model.lazy="personalInfo.last_name" />
+                    @error('personalInfo.last_name')
+                        <span class="input-error-icon" style="position:absolute; right:10px; top:65%; transform:translateY(-50%); color:#e53935;">&#9888;</span>
+                    @enderror
+                </div>
+                <div class="step4-form-row">
+                    <div class="step4-form-group @error('personalInfo.birth_day') is-invalid @enderror" style="flex:1; min-width:0; position:relative;">
+                        <label class="step4-form-label">Day of birth</label>
+                        <select class="step4-form-select" wire:model.lazy="personalInfo.birth_day">
+                            <option value="">Day</option>
+                            @for($i=1;$i<=31;$i++)
+                                <option value="{{ sprintf('%02d', $i) }}">{{ sprintf('%02d', $i) }}</option>
+                            @endfor
+                        </select>
+                        @error('personalInfo.birth_day')
                             <span class="input-error-icon" style="position:absolute; right:10px; top:65%; transform:translateY(-50%); color:#e53935;">&#9888;</span>
                         @enderror
                     </div>
-                    <div class="step4-form-group @error('personalInfo.last_name') is-invalid @enderror" style="position:relative;">
-                        <label class="step4-form-label">Last name</label>
-                        <input type="text" class="step4-form-input" readonly wire:model.lazy="personalInfo.last_name" />
-                        @error('personalInfo.last_name')
-                            <span class="input-error-icon" style="position:absolute; right:10px; top:65%; transform:translateY(-50%); color:#e53935;">&#9888;</span>
-                        @enderror
-                    </div>
-                    <div class="step4-form-row">
-                        <div class="step4-form-group @error('personalInfo.birth_day') is-invalid @enderror" style="flex:1; min-width:0; position:relative;">
-                            <label class="step4-form-label">Day of birth</label>
-                            <select class="step4-form-select" wire:model.lazy="personalInfo.birth_day">
-                                <option value="">Day</option>
-                                @for($i=1;$i<=31;$i++)
-                                    <option value="{{ sprintf('%02d', $i) }}">{{ sprintf('%02d', $i) }}</option>
-                                @endfor
-                            </select>
-                            @error('personalInfo.birth_day')
-                                <span class="input-error-icon" style="position:absolute; right:10px; top:65%; transform:translateY(-50%); color:#e53935;">&#9888;</span>
-                            @enderror
-                        </div>
                         <div class="step4-form-group @error('personalInfo.birth_month') is-invalid mx-1 @enderror" style="flex:1; min-width:0; position:relative;">
-                            <label class="step4-form-label">Month of birth</label>
-                            <select class="step4-form-select" wire:model.lazy="personalInfo.birth_month">
-                                <option value="">Month</option>
-                                @foreach(['January','February','March','April','May','June','July','August','September','October','November','December'] as $month)
-                                    <option value="{{ $month }}">{{ $month }}</option>
-                                @endforeach
-                            </select>
-                            @error('personalInfo.birth_month')
-                                <span class="input-error-icon" style="position:absolute; right:10px; top:65%; transform:translateY(-50%); color:#e53935;">&#9888;</span>
-                            @enderror
-                        </div>
-                        <div class="step4-form-group @error('personalInfo.birth_year') is-invalid @enderror" style="flex:1; min-width:0; position:relative;">
-                            <label class="step4-form-label">Year of birth</label>
-                            <select class="step4-form-select" wire:model.lazy="personalInfo.birth_year">
-                                <option value="">Year</option>
-                                @for($y = date('Y'); $y >= 1900; $y--)
-                                    <option value="{{ $y }}">{{ $y }}</option>
-                                @endfor
-                            </select>
-                            @error('personalInfo.birth_year')
-                                <span class="input-error-icon" style="position:absolute; right:10px; top:65%; transform:translateY(-50%); color:#e53935;">&#9888;</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="step4-form-group @error('personalInfo.nationality') is-invalid @enderror" style="position:relative;">
-                        <label class="step4-form-label">Nationality</label>
-                        <select class="step4-form-select" wire:model.lazy="personalInfo.nationality">
-                            <option value="">Select Nationality</option>
-                            <option value="US">USA</option>
-                            <option value="FR">France</option>
-                            <option value="DE">Germany</option>
-                            <option value="GB">United Kingdom</option>
-                            <option value="AF">Afghanistan</option>
-                            <option value="AX">Aland Islands</option>
-                            <option value="AL">Albania</option>
-                            <option value="DZ">Algeria</option>
-                            <option value="AS">American Samoa</option>
-                            <option value="AD">Andorra</option>
-                            <option value="AO">Angola</option>
-                            <option value="AI">Anguilla</option>
-                            <option value="AQ">Antarctica</option>
-                            <option value="AG">Antigua And Barbuda</option>
-                            <option value="AR">Argentina</option>
-                            <option value="AM">Armenia</option>
-                            <option value="AW">Aruba</option>
-                            <option value="AU">Australia</option>
-                            <option value="AT">Austria</option>
-                            <option value="AZ">Azerbaijan</option>
-                            <option value="BS">Bahamas</option>
-                            <option value="BH">Bahrain</option>
-                            <option value="BD">Bangladesh</option>
-                            <option value="BB">Barbados</option>
-                            <option value="BY">Belarus</option>
-                            <option value="BE">Belgium</option>
-                            <option value="BZ">Belize</option>
-                            <option value="BJ">Benin</option>
-                            <option value="BM">Bermuda</option>
-                            <option value="BT">Bhutan</option>
-                            <option value="BO">Bolivia, Plurinational State Of</option>
-                            <option value="BQ">Bonaire</option>
-                            <option value="BA">Bosnia And Herzegovina</option>
-                            <option value="BW">Botswana</option>
-                            <option value="BV">Bouvet Island</option>
-                            <option value="BR">Brazil</option>
-                            <option value="IO">British Indian Ocean Territory</option>
-                            <option value="BN">Brunei Darussalam</option>
-                            <option value="BG">Bulgaria</option>
-                            <option value="BF">Burkina Faso</option>
-                            <option value="BI">Burundi</option>
-                            <option value="KH">Cambodia</option>
-                            <option value="CM">Cameroon</option>
-                            <option value="CA">Canada</option>
-                            <option value="CV">Cape Verde</option>
-                            <option value="KY">Cayman Islands</option>
-                            <option value="CF">Central African Republic</option>
-                            <option value="TD">Chad</option>
-                            <option value="CL">Chile</option>
-                            <option value="CN">China</option>
-                            <option value="CX">Christmas Island</option>
-                            <option value="CC">Cocos (Keeling) Islands</option>
-                            <option value="CO">Colombia</option>
-                            <option value="KM">Comoros</option>
-                            <option value="CG">Congo</option>
-                            <option value="CD">Congo, The Democratic Republic Of The</option>
-                            <option value="CK">Cook Islands</option>
-                            <option value="CR">Costa Rica</option>
-                            <option value="CI">Côte D'Ivoire</option>
-                            <option value="HR">Croatia</option>
-                            <option value="CU">Cuba</option>
-                            <option value="CW">Curacao</option>
-                            <option value="CY">Cyprus</option>
-                            <option value="CZ">Czech Republic</option>
-                            <option value="DK">Denmark</option>
-                            <option value="DJ">Djibouti</option>
-                            <option value="DM">Dominica</option>
-                            <option value="DO">Dominican Republic</option>
-                            <option value="EC">Ecuador</option>
-                            <option value="EG">Egypt</option>
-                            <option value="SV">El Salvador</option>
-                            <option value="GQ">Equatorial Guinea</option>
-                            <option value="ER">Eritrea</option>
-                            <option value="EE">Estonia</option>
-                            <option value="ET">Ethiopia</option>
-                            <option value="FK">Falkland Islands (Malvinas)</option>
-                            <option value="FO">Faroe Islands</option>
-                            <option value="FJ">Fiji</option>
-                            <option value="FI">Finland</option>
-                            <option value="GF">French Guiana</option>
-                            <option value="PF">French Polynesia</option>
-                            <option value="TF">French Southern Territories</option>
-                            <option value="GA">Gabon</option>
-                            <option value="GM">Gambia</option>
-                            <option value="GE">Georgia</option>
-                            <option value="GH">Ghana</option>
-                            <option value="GI">Gibraltar</option>
-                            <option value="GR">Greece</option>
-                            <option value="GL">Greenland</option>
-                            <option value="GD">Grenada</option>
-                            <option value="GP">Guadeloupe</option>
-                            <option value="GU">Guam</option>
-                            <option value="GT">Guatemala</option>
-                            <option value="GG">Guernsey</option>
-                            <option value="GN">Guinea</option>
-                            <option value="GW">Guinea-Bissau</option>
-                            <option value="GY">Guyana</option>
-                            <option value="HT">Haiti</option>
-                            <option value="HM">Heard Island And Mcdonald Islands</option>
-                            <option value="VA">Holy See (Vatican City State)</option>
-                            <option value="HN">Honduras</option>
-                            <option value="HK">Hong Kong</option>
-                            <option value="HU">Hungary</option>
-                            <option value="IS">Iceland</option>
-                            <option value="IN">India</option>
-                            <option value="ID">Indonesia</option>
-                            <option value="IR">Iran, Islamic Republic Of</option>
-                            <option value="IQ">Iraq</option>
-                            <option value="IE">Ireland</option>
-                            <option value="IM">Isle Of Man</option>
-                            <option value="IL">Israel</option>
-                            <option value="IT">Italy</option>
-                            <option value="JM">Jamaica</option>
-                            <option value="JP">Japan</option>
-                            <option value="JE">Jersey</option>
-                            <option value="JO">Jordan</option>
-                            <option value="KZ">Kazakhstan</option>
-                            <option value="KE">Kenya</option>
-                            <option value="KI">Kiribati</option>
-                            <option value="KP">Korea, Democratic People's Republic Of</option>
-                            <option value="KR">Korea, Republic Of</option>
-                            <option value="KW">Kuwait</option>
-                            <option value="KG">Kyrgyzstan</option>
-                            <option value="LA">Lao People's Democratic Republic</option>
-                            <option value="LV">Latvia</option>
-                            <option value="LB">Lebanon</option>
-                            <option value="LS">Lesotho</option>
-                            <option value="LR">Liberia</option>
-                            <option value="LY">Libyan Arab Jamahiriya</option>
-                            <option value="LI">Liechtenstein</option>
-                            <option value="LT">Lithuania</option>
-                            <option value="LU">Luxembourg</option>
-                            <option value="MO">Macao</option>
-                            <option value="MK">Macedonia, The Former Yugoslav Republic Of</option>
-                            <option value="MG">Madagascar</option>
-                            <option value="MW">Malawi</option>
-                            <option value="MY">Malaysia</option>
-                            <option value="MV">Maldives</option>
-                            <option value="ML">Mali</option>
-                            <option value="MT">Malta</option>
-                            <option value="MH">Marshall Islands</option>
-                            <option value="MQ">Martinique</option>
-                            <option value="MR">Mauritania</option>
-                            <option value="MU">Mauritius</option>
-                            <option value="YT">Mayotte</option>
-                            <option value="MX">Mexico</option>
-                            <option value="FM">Micronesia, Federated States Of</option>
-                            <option value="MD">Moldova, Republic Of</option>
-                            <option value="MC">Monaco</option>
-                            <option value="MN">Mongolia</option>
-                            <option value="ME">Montenegro</option>
-                            <option value="MS">Montserrat</option>
-                            <option value="MA">Morocco</option>
-                            <option value="MZ">Mozambique</option>
-                            <option value="MM">Myanmar</option>
-                            <option value="NA">Namibia</option>
-                            <option value="NR">Nauru</option>
-                            <option value="NP">Nepal</option>
-                            <option value="NL">Netherlands</option>
-                            <option value="AN">Netherlands Antilles</option>
-                            <option value="NC">New Caledonia</option>
-                            <option value="NZ">New Zealand</option>
-                            <option value="NI">Nicaragua</option>
-                            <option value="NE">Niger</option>
-                            <option value="NG">Nigeria</option>
-                            <option value="NU">Niue</option>
-                            <option value="NF">Norfolk Island</option>
-                            <option value="MP">Northern Mariana Islands</option>
-                            <option value="NO">Norway</option>
-                            <option value="OM">Oman</option>
-                            <option value="PK">Pakistan</option>
-                            <option value="PW">Palau</option>
-                            <option value="PS">Palestine</option>
-                            <option value="PA">Panama</option>
-                            <option value="PG">Papua New Guinea</option>
-                            <option value="PY">Paraguay</option>
-                            <option value="PE">Peru</option>
-                            <option value="PH">Philippines</option>
-                            <option value="PN">Pitcairn</option>
-                            <option value="PL">Poland</option>
-                            <option value="PT">Portugal</option>
-                            <option value="PR">Puerto Rico</option>
-                            <option value="QA">Qatar</option>
-                            <option value="RE">Réunion</option>
-                            <option value="RO">Romania</option>
-                            <option value="RU">Russian Federation</option>
-                            <option value="RW">Rwanda</option>
-                            <option value="BL">Saint Barthélemy</option>
-                            <option value="SH">Saint Helena, Ascension And Tristan Da Cunha</option>
-                            <option value="KN">Saint Kitts And Nevis</option>
-                            <option value="LC">Saint Lucia</option>
-                            <option value="SX">Saint Martin</option>
-                            <option value="PM">Saint Pierre And Miquelon</option>
-                            <option value="VC">Saint Vincent And The Grenadines</option>
-                            <option value="WS">Samoa</option>
-                            <option value="SM">San Marino</option>
-                            <option value="ST">Sao Tome And Principe</option>
-                            <option value="SA">Saudi Arabia</option>
-                            <option value="SN">Senegal</option>
-                            <option value="RS">Serbia</option>
-                            <option value="SC">Seychelles</option>
-                            <option value="SL">Sierra Leone</option>
-                            <option value="SG">Singapore</option>
-                            <option value="SK">Slovakia</option>
-                            <option value="SI">Slovenia</option>
-                            <option value="SB">Solomon Islands</option>
-                            <option value="SO">Somalia</option>
-                            <option value="ZA">South Africa</option>
-                            <option value="GS">South Georgia And The South Sandwich Islands</option>
-                            <option value="SS">South Sudan</option>
-                            <option value="ES">Spain</option>
-                            <option value="LK">Sri Lanka</option>
-                            <option value="SD">Sudan</option>
-                            <option value="SR">Suriname</option>
-                            <option value="SJ">Svalbard And Jan Mayen</option>
-                            <option value="SZ">Swaziland</option>
-                            <option value="SE">Sweden</option>
-                            <option value="CH">Switzerland</option>
-                            <option value="SY">Syrian Arab Republic</option>
-                            <option value="TW">Taiwan, Province Of China</option>
-                            <option value="TJ">Tajikistan</option>
-                            <option value="TZ">Tanzania, United Republic Of</option>
-                            <option value="TH">Thailand</option>
-                            <option value="TL">Timor-Leste</option>
-                            <option value="TG">Togo</option>
-                            <option value="TK">Tokelau</option>
-                            <option value="TO">Tonga</option>
-                            <option value="TT">Trinidad And Tobago</option>
-                            <option value="TN">Tunisia</option>
-                            <option value="TR">Turkey</option>
-                            <option value="TM">Turkmenistan</option>
-                            <option value="TC">Turks And Caicos Islands</option>
-                            <option value="TV">Tuvalu</option>
-                            <option value="UG">Uganda</option>
-                            <option value="UA">Ukraine</option>
-                            <option value="AE">United Arab Emirates</option>
-                            <option value="UM">United States Minor Outlying Islands</option>
-                            <option value="UY">Uruguay</option>
-                            <option value="UZ">Uzbekistan</option>
-                            <option value="VU">Vanuatu</option>
-                            <option value="VE">Venezuela, Bolivarian Republic Of</option>
-                            <option value="VN">Vietnam</option>
-                            <option value="VG">Virgin Islands, British</option>
-                            <option value="VI">Virgin Islands, U.S.</option>
-                            <option value="WF">Wallis And Futuna</option>
-                            <option value="EH">Western Sahara</option>
-                            <option value="YE">Yemen</option>
-                            <option value="ZM">Zambia</option>
-                            <option value="ZW">Zimbabwe</option>
+                        <label class="step4-form-label">Month of birth</label>
+                        <select class="step4-form-select" wire:model.lazy="personalInfo.birth_month">
+                            <option value="">Month</option>
+                            @foreach(['January','February','March','April','May','June','July','August','September','October','November','December'] as $month)
+                                <option value="{{ $month }}">{{ $month }}</option>
+                            @endforeach
                         </select>
-                        @error('personalInfo.nationality')
+                        @error('personalInfo.birth_month')
                             <span class="input-error-icon" style="position:absolute; right:10px; top:65%; transform:translateY(-50%); color:#e53935;">&#9888;</span>
                         @enderror
                     </div>
-                    <button class="step4-update-btn" type="submit" style="margin: 18px auto 18px auto; width: 220px;">UPDATE</button>
-                </form>
-            @else
-                <div class="step4-form-box" style="display: flex; align-items: center; justify-content: space-between; padding: 0 18px; min-height: 56px;">
-                    <div>{{ $personalInfo['first_name'] ?? '' }} {{ $personalInfo['last_name'] ?? '' }}, {{ $personalInfo['birth_year'] ?? '' }}-{{ $personalInfo['birth_month'] ?? '' }}-{{ $personalInfo['birth_day'] ?? '' }}</div>
-                    <button type="button" class="btn btn-link" wire:click="editPersonalInfo" style="color: #888; border: 1px solid #cfd8dc; border-radius: 4px; padding: 4px 18px;">Edit</button>
+                    <div class="step4-form-group @error('personalInfo.birth_year') is-invalid @enderror" style="flex:1; min-width:0; position:relative;">
+                        <label class="step4-form-label">Year of birth</label>
+                        <select class="step4-form-select" wire:model.lazy="personalInfo.birth_year">
+                            <option value="">Year</option>
+                            @for($y = date('Y'); $y >= 1900; $y--)
+                                <option value="{{ $y }}">{{ $y }}</option>
+                            @endfor
+                        </select>
+                        @error('personalInfo.birth_year')
+                            <span class="input-error-icon" style="position:absolute; right:10px; top:65%; transform:translateY(-50%); color:#e53935;">&#9888;</span>
+                        @enderror
+                    </div>
                 </div>
-            @endif
-    
-            {{-- Contact information section --}}
-            <div class="step4-section-title">Contact information</div>
+                <div class="step4-form-group @error('personalInfo.nationality') is-invalid @enderror" style="position:relative;">
+                    <label class="step4-form-label">Nationality</label>
+                    <select class="step4-form-select" wire:model.lazy="personalInfo.nationality">
+                        <option value="">Select Nationality</option>
+                        <option value="US">USA</option>
+                        <option value="FR">France</option>
+                        <option value="DE">Germany</option>
+                        <option value="GB">United Kingdom</option>
+                        <option value="AF">Afghanistan</option>
+                        <option value="AX">Aland Islands</option>
+                        <option value="AL">Albania</option>
+                        <option value="DZ">Algeria</option>
+                        <option value="AS">American Samoa</option>
+                        <option value="AD">Andorra</option>
+                        <option value="AO">Angola</option>
+                        <option value="AI">Anguilla</option>
+                        <option value="AQ">Antarctica</option>
+                        <option value="AG">Antigua And Barbuda</option>
+                        <option value="AR">Argentina</option>
+                        <option value="AM">Armenia</option>
+                        <option value="AW">Aruba</option>
+                        <option value="AU">Australia</option>
+                        <option value="AT">Austria</option>
+                        <option value="AZ">Azerbaijan</option>
+                        <option value="BS">Bahamas</option>
+                        <option value="BH">Bahrain</option>
+                        <option value="BD">Bangladesh</option>
+                        <option value="BB">Barbados</option>
+                        <option value="BY">Belarus</option>
+                        <option value="BE">Belgium</option>
+                        <option value="BZ">Belize</option>
+                        <option value="BJ">Benin</option>
+                        <option value="BM">Bermuda</option>
+                        <option value="BT">Bhutan</option>
+                        <option value="BO">Bolivia, Plurinational State Of</option>
+                        <option value="BQ">Bonaire</option>
+                        <option value="BA">Bosnia And Herzegovina</option>
+                        <option value="BW">Botswana</option>
+                        <option value="BV">Bouvet Island</option>
+                        <option value="BR">Brazil</option>
+                        <option value="IO">British Indian Ocean Territory</option>
+                        <option value="BN">Brunei Darussalam</option>
+                        <option value="BG">Bulgaria</option>
+                        <option value="BF">Burkina Faso</option>
+                        <option value="BI">Burundi</option>
+                        <option value="KH">Cambodia</option>
+                        <option value="CM">Cameroon</option>
+                        <option value="CA">Canada</option>
+                        <option value="CV">Cape Verde</option>
+                        <option value="KY">Cayman Islands</option>
+                        <option value="CF">Central African Republic</option>
+                        <option value="TD">Chad</option>
+                        <option value="CL">Chile</option>
+                        <option value="CN">China</option>
+                        <option value="CX">Christmas Island</option>
+                        <option value="CC">Cocos (Keeling) Islands</option>
+                        <option value="CO">Colombia</option>
+                        <option value="KM">Comoros</option>
+                        <option value="CG">Congo</option>
+                        <option value="CD">Congo, The Democratic Republic Of The</option>
+                        <option value="CK">Cook Islands</option>
+                        <option value="CR">Costa Rica</option>
+                        <option value="CI">Côte D'Ivoire</option>
+                        <option value="HR">Croatia</option>
+                        <option value="CU">Cuba</option>
+                        <option value="CW">Curacao</option>
+                        <option value="CY">Cyprus</option>
+                        <option value="CZ">Czech Republic</option>
+                        <option value="DK">Denmark</option>
+                        <option value="DJ">Djibouti</option>
+                        <option value="DM">Dominica</option>
+                        <option value="DO">Dominican Republic</option>
+                        <option value="EC">Ecuador</option>
+                        <option value="EG">Egypt</option>
+                        <option value="SV">El Salvador</option>
+                        <option value="GQ">Equatorial Guinea</option>
+                        <option value="ER">Eritrea</option>
+                        <option value="EE">Estonia</option>
+                        <option value="ET">Ethiopia</option>
+                        <option value="FK">Falkland Islands (Malvinas)</option>
+                        <option value="FO">Faroe Islands</option>
+                        <option value="FJ">Fiji</option>
+                        <option value="FI">Finland</option>
+                        <option value="GF">French Guiana</option>
+                        <option value="PF">French Polynesia</option>
+                        <option value="TF">French Southern Territories</option>
+                        <option value="GA">Gabon</option>
+                        <option value="GM">Gambia</option>
+                        <option value="GE">Georgia</option>
+                        <option value="GH">Ghana</option>
+                        <option value="GI">Gibraltar</option>
+                        <option value="GR">Greece</option>
+                        <option value="GL">Greenland</option>
+                        <option value="GD">Grenada</option>
+                        <option value="GP">Guadeloupe</option>
+                        <option value="GU">Guam</option>
+                        <option value="GT">Guatemala</option>
+                        <option value="GG">Guernsey</option>
+                        <option value="GN">Guinea</option>
+                        <option value="GW">Guinea-Bissau</option>
+                        <option value="GY">Guyana</option>
+                        <option value="HT">Haiti</option>
+                        <option value="HM">Heard Island And Mcdonald Islands</option>
+                        <option value="VA">Holy See (Vatican City State)</option>
+                        <option value="HN">Honduras</option>
+                        <option value="HK">Hong Kong</option>
+                        <option value="HU">Hungary</option>
+                        <option value="IS">Iceland</option>
+                        <option value="IN">India</option>
+                        <option value="ID">Indonesia</option>
+                        <option value="IR">Iran, Islamic Republic Of</option>
+                        <option value="IQ">Iraq</option>
+                        <option value="IE">Ireland</option>
+                        <option value="IM">Isle Of Man</option>
+                        <option value="IL">Israel</option>
+                        <option value="IT">Italy</option>
+                        <option value="JM">Jamaica</option>
+                        <option value="JP">Japan</option>
+                        <option value="JE">Jersey</option>
+                        <option value="JO">Jordan</option>
+                        <option value="KZ">Kazakhstan</option>
+                        <option value="KE">Kenya</option>
+                        <option value="KI">Kiribati</option>
+                        <option value="KP">Korea, Democratic People's Republic Of</option>
+                        <option value="KR">Korea, Republic Of</option>
+                        <option value="KW">Kuwait</option>
+                        <option value="KG">Kyrgyzstan</option>
+                        <option value="LA">Lao People's Democratic Republic</option>
+                        <option value="LV">Latvia</option>
+                        <option value="LB">Lebanon</option>
+                        <option value="LS">Lesotho</option>
+                        <option value="LR">Liberia</option>
+                        <option value="LY">Libyan Arab Jamahiriya</option>
+                        <option value="LI">Liechtenstein</option>
+                        <option value="LT">Lithuania</option>
+                        <option value="LU">Luxembourg</option>
+                        <option value="MO">Macao</option>
+                        <option value="MK">Macedonia, The Former Yugoslav Republic Of</option>
+                        <option value="MG">Madagascar</option>
+                        <option value="MW">Malawi</option>
+                        <option value="MY">Malaysia</option>
+                        <option value="MV">Maldives</option>
+                        <option value="ML">Mali</option>
+                        <option value="MT">Malta</option>
+                        <option value="MH">Marshall Islands</option>
+                        <option value="MQ">Martinique</option>
+                        <option value="MR">Mauritania</option>
+                        <option value="MU">Mauritius</option>
+                        <option value="YT">Mayotte</option>
+                        <option value="MX">Mexico</option>
+                        <option value="FM">Micronesia, Federated States Of</option>
+                        <option value="MD">Moldova, Republic Of</option>
+                        <option value="MC">Monaco</option>
+                        <option value="MN">Mongolia</option>
+                        <option value="ME">Montenegro</option>
+                        <option value="MS">Montserrat</option>
+                        <option value="MA">Morocco</option>
+                        <option value="MZ">Mozambique</option>
+                        <option value="MM">Myanmar</option>
+                        <option value="NA">Namibia</option>
+                        <option value="NR">Nauru</option>
+                        <option value="NP">Nepal</option>
+                        <option value="NL">Netherlands</option>
+                        <option value="AN">Netherlands Antilles</option>
+                        <option value="NC">New Caledonia</option>
+                        <option value="NZ">New Zealand</option>
+                        <option value="NI">Nicaragua</option>
+                        <option value="NE">Niger</option>
+                        <option value="NG">Nigeria</option>
+                        <option value="NU">Niue</option>
+                        <option value="NF">Norfolk Island</option>
+                        <option value="MP">Northern Mariana Islands</option>
+                        <option value="NO">Norway</option>
+                        <option value="OM">Oman</option>
+                        <option value="PK">Pakistan</option>
+                        <option value="PW">Palau</option>
+                        <option value="PS">Palestine</option>
+                        <option value="PA">Panama</option>
+                        <option value="PG">Papua New Guinea</option>
+                        <option value="PY">Paraguay</option>
+                        <option value="PE">Peru</option>
+                        <option value="PH">Philippines</option>
+                        <option value="PN">Pitcairn</option>
+                        <option value="PL">Poland</option>
+                        <option value="PT">Portugal</option>
+                        <option value="PR">Puerto Rico</option>
+                        <option value="QA">Qatar</option>
+                        <option value="RE">Réunion</option>
+                        <option value="RO">Romania</option>
+                        <option value="RU">Russian Federation</option>
+                        <option value="RW">Rwanda</option>
+                        <option value="BL">Saint Barthélemy</option>
+                        <option value="SH">Saint Helena, Ascension And Tristan Da Cunha</option>
+                        <option value="KN">Saint Kitts And Nevis</option>
+                        <option value="LC">Saint Lucia</option>
+                        <option value="SX">Saint Martin</option>
+                        <option value="PM">Saint Pierre And Miquelon</option>
+                        <option value="VC">Saint Vincent And The Grenadines</option>
+                        <option value="WS">Samoa</option>
+                        <option value="SM">San Marino</option>
+                        <option value="ST">Sao Tome And Principe</option>
+                        <option value="SA">Saudi Arabia</option>
+                        <option value="SN">Senegal</option>
+                        <option value="RS">Serbia</option>
+                        <option value="SC">Seychelles</option>
+                        <option value="SL">Sierra Leone</option>
+                        <option value="SG">Singapore</option>
+                        <option value="SK">Slovakia</option>
+                        <option value="SI">Slovenia</option>
+                        <option value="SB">Solomon Islands</option>
+                        <option value="SO">Somalia</option>
+                        <option value="ZA">South Africa</option>
+                        <option value="GS">South Georgia And The South Sandwich Islands</option>
+                        <option value="SS">South Sudan</option>
+                        <option value="ES">Spain</option>
+                        <option value="LK">Sri Lanka</option>
+                        <option value="SD">Sudan</option>
+                        <option value="SR">Suriname</option>
+                        <option value="SJ">Svalbard And Jan Mayen</option>
+                        <option value="SZ">Swaziland</option>
+                        <option value="SE">Sweden</option>
+                        <option value="CH">Switzerland</option>
+                        <option value="SY">Syrian Arab Republic</option>
+                        <option value="TW">Taiwan, Province Of China</option>
+                        <option value="TJ">Tajikistan</option>
+                        <option value="TZ">Tanzania, United Republic Of</option>
+                        <option value="TH">Thailand</option>
+                        <option value="TL">Timor-Leste</option>
+                        <option value="TG">Togo</option>
+                        <option value="TK">Tokelau</option>
+                        <option value="TO">Tonga</option>
+                        <option value="TT">Trinidad And Tobago</option>
+                        <option value="TN">Tunisia</option>
+                        <option value="TR">Turkey</option>
+                        <option value="TM">Turkmenistan</option>
+                        <option value="TC">Turks And Caicos Islands</option>
+                        <option value="TV">Tuvalu</option>
+                        <option value="UG">Uganda</option>
+                        <option value="UA">Ukraine</option>
+                        <option value="AE">United Arab Emirates</option>
+                        <option value="UM">United States Minor Outlying Islands</option>
+                        <option value="UY">Uruguay</option>
+                        <option value="UZ">Uzbekistan</option>
+                        <option value="VU">Vanuatu</option>
+                        <option value="VE">Venezuela, Bolivarian Republic Of</option>
+                        <option value="VN">Vietnam</option>
+                        <option value="VG">Virgin Islands, British</option>
+                        <option value="VI">Virgin Islands, U.S.</option>
+                        <option value="WF">Wallis And Futuna</option>
+                        <option value="EH">Western Sahara</option>
+                        <option value="YE">Yemen</option>
+                        <option value="ZM">Zambia</option>
+                        <option value="ZW">Zimbabwe</option>
+                    </select>
+                    @error('personalInfo.nationality')
+                        <span class="input-error-icon" style="position:absolute; right:10px; top:65%; transform:translateY(-50%); color:#e53935;">&#9888;</span>
+                    @enderror
+                </div>
+                <button class="step4-update-btn" type="submit" style="margin: 18px auto 18px auto; width: 220px;">UPDATE</button>
+            </form>
+        @else
+            <div class="step4-form-box" style="display: flex; align-items: center; justify-content: space-between; padding: 0 18px; min-height: 56px;">
+                <div>{{ $personalInfo['first_name'] ?? '' }} {{ $personalInfo['last_name'] ?? '' }}, {{ $personalInfo['birth_year'] ?? '' }}-{{ $personalInfo['birth_month'] ?? '' }}-{{ $personalInfo['birth_day'] ?? '' }}</div>
+                <button type="button" class="btn btn-link" wire:click="editPersonalInfo" style="color: #888; border: 1px solid #cfd8dc; border-radius: 4px; padding: 4px 18px;">Edit</button>
+            </div>
+        @endif
+
+        {{-- Contact information section --}}
+        <div class="step4-section-title">Contact information</div>
             @if($step4Section === 'contact')
-                <form class="step4-form-box" wire:submit.prevent="validateContactInfoAndNext">
-                    <div class="step4-form-group @error('contactInfo.email') is-invalid @enderror" style="position:relative;">
-                        <label class="step4-form-label">Email</label>
-                        <input type="email" class="step4-form-input" wire:model.lazy="contactInfo.email" />
-                        @error('contactInfo.email')
+            <form class="step4-form-box" wire:submit.prevent="validateContactInfoAndNext">
+                <div class="step4-form-group @error('contactInfo.email') is-invalid @enderror" style="position:relative;">
+                    <label class="step4-form-label">Email</label>
+                    <input type="email" class="step4-form-input" wire:model.lazy="contactInfo.email" />
+                    @error('contactInfo.email')
+                        <span class="input-error-icon" style="position:absolute; right:10px; top:65%; transform:translateY(-50%); color:#e53935;">&#9888;</span>
+                    @enderror
+                </div>
+                <div class="step4-form-row">
+                        <div class="step4-form-group @error('contactInfo.phone_code') is-invalid me-1 @enderror" style="flex:0.6; min-width:0; position:relative;">
+                        <label class="step4-form-label">Country code</label>
+                        <select class="step4-form-select" wire:model.lazy="contactInfo.phone_code">
+                            <option value="">Code</option>
+                            <option value="+1">+1 (USA)</option>
+                            <option value="+33">+33 (France)</option>
+                            <option value="+49">+49 (Germany)</option>
+                            <option value="+44">+44 (UK)</option>
+                            <!-- ... باقي الأكواد ... -->
+                        </select>
+                        @error('contactInfo.phone_code')
                             <span class="input-error-icon" style="position:absolute; right:10px; top:65%; transform:translateY(-50%); color:#e53935;">&#9888;</span>
                         @enderror
                     </div>
-                    <div class="step4-form-row">
-                        <div class="step4-form-group @error('contactInfo.phone_code') is-invalid me-1 @enderror" style="flex:0.6; min-width:0; position:relative;">
-                            <label class="step4-form-label">Country code</label>
-                            <select class="step4-form-select" wire:model.lazy="contactInfo.phone_code">
-                                <option value="">Code</option>
-                                <option value="+1">+1 (USA)</option>
-                                <option value="+33">+33 (France)</option>
-                                <option value="+49">+49 (Germany)</option>
-                                <option value="+44">+44 (UK)</option>
-                                <!-- ... باقي الأكواد ... -->
-                            </select>
-                            @error('contactInfo.phone_code')
-                                <span class="input-error-icon" style="position:absolute; right:10px; top:65%; transform:translateY(-50%); color:#e53935;">&#9888;</span>
-                            @enderror
-                        </div>
-                        <div class="step4-form-group @error('contactInfo.phone') is-invalid @enderror" style="flex:1.4; min-width:0; position:relative;">
-                            <label class="step4-form-label">Phone</label>
-                            <input type="text" class="step4-form-input" wire:model.lazy="contactInfo.phone" maxlength="14" />
-                            @error('contactInfo.phone')
-                                <span class="input-error-icon" style="position:absolute; right:10px; top:65%; transform:translateY(-50%); color:#e53935;">&#9888;</span>
-                            @enderror
-                        </div>
+                    <div class="step4-form-group @error('contactInfo.phone') is-invalid @enderror" style="flex:1.4; min-width:0; position:relative;">
+                        <label class="step4-form-label">Phone</label>
+                        <input type="text" class="step4-form-input" wire:model.lazy="contactInfo.phone" maxlength="14" />
+                        @error('contactInfo.phone')
+                            <span class="input-error-icon" style="position:absolute; right:10px; top:65%; transform:translateY(-50%); color:#e53935;">&#9888;</span>
+                        @enderror
                     </div>
-                    <button class="step4-update-btn" type="submit" style="margin: 18px auto 18px auto; width: 220px;">UPDATE</button>
-                </form>
+                </div>
+                <button class="step4-update-btn" type="submit" style="margin: 18px auto 18px auto; width: 220px;">UPDATE</button>
+            </form>
             @elseif($contactInfoCompleted)
-                <div class="step4-form-box" style="display: flex; align-items: center; justify-content: space-between; padding: 0 18px; min-height: 56px;">
-                    <div>{{ $contactInfo['email'] ?? '' }}<br>{{ $contactInfo['phone_code'] ?? '' }} {{ $contactInfo['phone'] ?? '' }}</div>
-                    <button type="button" class="btn btn-link" wire:click="editContactInfo" style="color: #888; border: 1px solid #cfd8dc; border-radius: 4px; padding: 4px 18px;">Edit</button>
-                </div>
-            @endif
-    
-            {{-- Address information section --}}
-            <div class="step4-section-title">Address information</div>
+            <div class="step4-form-box" style="display: flex; align-items: center; justify-content: space-between; padding: 0 18px; min-height: 56px;">
+                <div>{{ $contactInfo['email'] ?? '' }}<br>{{ $contactInfo['phone_code'] ?? '' }} {{ $contactInfo['phone'] ?? '' }}</div>
+                <button type="button" class="btn btn-link" wire:click="editContactInfo" style="color: #888; border: 1px solid #cfd8dc; border-radius: 4px; padding: 4px 18px;">Edit</button>
+            </div>
+        @endif
+
+        {{-- Address information section --}}
+        <div class="step4-section-title">Address information</div>
             @if($step4Section === 'address')
-                <form class="step4-form-box" wire:submit.prevent="validateAddressInfoAndNext">
-                    <div class="step4-form-group @error('addressInfo.country') is-invalid @enderror" style="position:relative;">
-                        <label class="step4-form-label">Country</label>
-                        <select class="step4-form-select" wire:model.lazy="addressInfo.country">
-                            <option value="">Country</option>
-                            <option value="FR">France</option>
-                            <option value="US">USA</option>
-                            <option value="DE">Germany</option>
-                            <option value="GB">United Kingdom</option>
-                            <!-- ... باقي الدول ... -->
-                        </select>
-                        @error('addressInfo.country')
-                            <span class="input-error-icon" style="position:absolute; right:36px; top:65%; transform:translateY(-50%); color:#e53935;">&#9888;</span>
-                        @enderror
-                    </div>
-                    <div class="step4-form-group @error('addressInfo.address1') is-invalid @enderror" style="position:relative;">
-                        <label class="step4-form-label">Address line 1</label>
-                        <input type="text" class="step4-form-input" wire:model.lazy="addressInfo.address1" />
-                        @error('addressInfo.address1')
-                            <span class="input-error-icon" style="position:absolute; right:36px; top:65%; transform:translateY(-50%); color:#e53935;">&#9888;</span>
-                        @enderror
-                    </div>
-                    <div class="step4-form-group" style="position:relative;">
-                        <label class="step4-form-label">Address line 2 ( Optional )</label>
-                        <input type="text" class="step4-form-input" wire:model.lazy="addressInfo.address2" />
-                    </div>
-                    <div class="step4-form-group @error('addressInfo.city') is-invalid @enderror" style="position:relative;">
-                        <label class="step4-form-label">City</label>
-                        <input type="text" class="step4-form-input" wire:model.lazy="addressInfo.city" />
-                        @error('addressInfo.city')
-                            <span class="input-error-icon" style="position:absolute; right:36px; top:65%; transform:translateY(-50%); color:#e53935;">&#9888;</span>
-                        @enderror
-                    </div>
-                    <div class="step4-form-group @error('addressInfo.zip') is-invalid @enderror" style="position:relative;">
-                        <label class="step4-form-label">Zip code</label>
-                        <input type="text" class="step4-form-input" wire:model.lazy="addressInfo.zip" />
-                        @error('addressInfo.zip')
-                            <span class="input-error-icon" style="position:absolute; right:36px; top:65%; transform:translateY(-50%); color:#e53935;">&#9888;</span>
-                        @enderror
-                    </div>
-                    <button class="step4-update-btn" type="submit" style="margin: 18px auto 18px auto; width: 220px;">UPDATE</button>
-                </form>
-            @elseif($addressInfoCompleted)
-                <div class="step4-form-box" style="display: flex; align-items: center; justify-content: space-between; padding: 0 18px; min-height: 56px;">
-                    <div>
-                        {{ $addressInfo['country'] ?? '' }} 
-                        {{ $addressInfo['address1'] ?? '' }} 
-                        @if(!empty($addressInfo['address2'])){{ $addressInfo['address2'] }} @endif
-                        {{ $addressInfo['city'] ?? '' }} 
-                        {{ $addressInfo['zip'] ?? '' }}
-                    </div>
+            <form class="step4-form-box" wire:submit.prevent="validateAddressInfoAndNext">
+                <div class="step4-form-group @error('addressInfo.country') is-invalid @enderror" style="position:relative;">
+                    <label class="step4-form-label">Country</label>
+                    <select class="step4-form-select" wire:model.lazy="addressInfo.country">
+                        <option value="">Country</option>
+                        <option value="FR">France</option>
+                        <option value="US">USA</option>
+                        <option value="DE">Germany</option>
+                        <option value="GB">United Kingdom</option>
+                        <!-- ... باقي الدول ... -->
+                    </select>
+                    @error('addressInfo.country')
+                        <span class="input-error-icon" style="position:absolute; right:36px; top:65%; transform:translateY(-50%); color:#e53935;">&#9888;</span>
+                    @enderror
+                </div>
+                <div class="step4-form-group @error('addressInfo.address1') is-invalid @enderror" style="position:relative;">
+                    <label class="step4-form-label">Address line 1</label>
+                    <input type="text" class="step4-form-input" wire:model.lazy="addressInfo.address1" />
+                    @error('addressInfo.address1')
+                        <span class="input-error-icon" style="position:absolute; right:36px; top:65%; transform:translateY(-50%); color:#e53935;">&#9888;</span>
+                    @enderror
+                </div>
+                <div class="step4-form-group" style="position:relative;">
+                    <label class="step4-form-label">Address line 2 ( Optional )</label>
+                    <input type="text" class="step4-form-input" wire:model.lazy="addressInfo.address2" />
+                </div>
+                <div class="step4-form-group @error('addressInfo.city') is-invalid @enderror" style="position:relative;">
+                    <label class="step4-form-label">City</label>
+                    <input type="text" class="step4-form-input" wire:model.lazy="addressInfo.city" />
+                    @error('addressInfo.city')
+                        <span class="input-error-icon" style="position:absolute; right:36px; top:65%; transform:translateY(-50%); color:#e53935;">&#9888;</span>
+                    @enderror
+                </div>
+                <div class="step4-form-group @error('addressInfo.zip') is-invalid @enderror" style="position:relative;">
+                    <label class="step4-form-label">Zip code</label>
+                    <input type="text" class="step4-form-input" wire:model.lazy="addressInfo.zip" />
+                    @error('addressInfo.zip')
+                        <span class="input-error-icon" style="position:absolute; right:36px; top:65%; transform:translateY(-50%); color:#e53935;">&#9888;</span>
+                    @enderror
+                </div>
+                <button class="step4-update-btn" type="submit" style="margin: 18px auto 18px auto; width: 220px;">UPDATE</button>
+            </form>
+        @elseif($addressInfoCompleted)
+            <div class="step4-form-box" style="display: flex; align-items: center; justify-content: space-between; padding: 0 18px; min-height: 56px;">
+                <div>
+                    {{ $addressInfo['country'] ?? '' }} 
+                    {{ $addressInfo['address1'] ?? '' }} 
+                    @if(!empty($addressInfo['address2'])){{ $addressInfo['address2'] }} @endif
+                    {{ $addressInfo['city'] ?? '' }} 
+                    {{ $addressInfo['zip'] ?? '' }}
+                </div>
                     <button type="button" class="btn btn-link" wire:click="editAddressInfo" style="color: #888; border: 1px solid #cfd8dc; border-radius: 4px; padding: 4px 18px;text-wrap-mode: nowrap;">Edit</button>
-                </div>
-            @endif
-    
-            {{-- Main guest signature section --}}
-            <div class="step4-section-title">Main guest signature</div>
+            </div>
+        @endif
+
+        {{-- Main guest signature section --}}
+        <div class="step4-section-title">Main guest signature</div>
             @if($step4Section === 'signature')
-                <form class="step4-form-box" wire:submit.prevent="validateSignatureAndNext">
-                    <div class="step4-form-group @error('signature') is-invalid @enderror" style="position:relative; background: #f7f7f7;">
-                        <label class="step4-form-label" style="color:#444; font-size: 0.98em; font-weight:400;">Onscreen Signature</label>
-                        <div class="signature-pad-container" style="background:#fff; border-radius:6px; border:2px dotted #CCCCCC; width:100%; position:relative;">
-                            <canvas id="signaturex_pad" width="600" height="160" style="width:100%;height:160px;touch-action: none;display:block;"></canvas>
-                            <button type="button" id="clear_button" style="position:absolute; right:18px; bottom:8px; font-size:0.97em; color:#2196f3; text-decoration:underline; background:none; border:none; cursor:pointer;">Clear</button>
-                        </div>
-                        <input type="hidden" wire:model="signature" id="sig-dataUrl">
-                        @error('signature')
-                            <span class="input-error-icon" style="position:absolute; right:36px; top:65%; transform:translateY(-50%); color:#e53935;">&#9888;</span>
-                        @enderror
+            <form class="step4-form-box" wire:submit.prevent="validateSignatureAndNext">
+                <div class="step4-form-group @error('signature') is-invalid @enderror" style="position:relative; background: #f7f7f7;">
+                    <label class="step4-form-label" style="color:#444; font-size: 0.98em; font-weight:400;">Onscreen Signature</label>
+                    <div class="signature-pad-container" style="background:#fff; border-radius:6px; border:2px dotted #CCCCCC; width:100%; position:relative;">
+                        <canvas id="signaturex_pad" width="600" height="160" style="width:100%;height:160px;touch-action: none;display:block;"></canvas>
+                        <button type="button" id="clear_button" style="position:absolute; right:18px; bottom:8px; font-size:0.97em; color:#2196f3; text-decoration:underline; background:none; border:none; cursor:pointer;">Clear</button>
                     </div>
-                    <button class="step4-update-btn" type="submit" style="margin: 18px auto 18px auto; width: 220px;">UPDATE</button>
-                </form>
-            @elseif($signatureCompleted)
-                <div class="step4-form-box step4-summary-box" style="display: flex; align-items: center; justify-content: space-between; padding: 0 18px; min-height: 56px;">
-                    <span>Signature captured</span>
-                    <button type="button"  class="btn btn-link" wire:click="editSignature" style="color: #888; border: 1px solid #cfd8dc; border-radius: 4px; padding: 4px 18px;">Edit</button>
+                    <input type="hidden" wire:model="signature" id="sig-dataUrl">
+                    @error('signature')
+                        <span class="input-error-icon" style="position:absolute; right:36px; top:65%; transform:translateY(-50%); color:#e53935;">&#9888;</span>
+                    @enderror
                 </div>
-            @endif
-    
-            {{-- Arrival Details section --}}
-            <div class="step4-section-title">Arrival Details</div>
+                <button class="step4-update-btn" type="submit" style="margin: 18px auto 18px auto; width: 220px;">UPDATE</button>
+            </form>
+        @elseif($signatureCompleted)
+            <div class="step4-form-box step4-summary-box" style="display: flex; align-items: center; justify-content: space-between; padding: 0 18px; min-height: 56px;">
+                <span>Signature captured</span>
+                <button type="button"  class="btn btn-link" wire:click="editSignature" style="color: #888; border: 1px solid #cfd8dc; border-radius: 4px; padding: 4px 18px;">Edit</button>
+            </div>
+        @endif
+
+        {{-- Arrival Details section --}}
+        <div class="step4-section-title">Arrival Details</div>
             @if($step4Section === 'arrival')
-                <form class="step4-form-box" wire:submit.prevent="validateArrivalDetailsAndNext">
-                    <div class="step4-form-group" style="position:relative;">
-                        <label class="step4-form-label">Flight number (if arriving at the airport) <span style="color:#bdbdbd; font-weight:400;">( Optional )</span></label>
-                        <input type="text" class="step4-form-input" wire:model.lazy="arrivalDetails.flight_number" placeholder="Flight number (Optional)" />
-                    </div>
-                    <div class="step4-form-group" style="position:relative;">
-                        <label class="step4-form-label">User-Defined Field 2 <span style="color:#bdbdbd; font-weight:400;">( Optional )</span></label>
-                        <input type="text" class="step4-form-input" wire:model.lazy="arrivalDetails.user_defined_2" placeholder="User-Defined Field 2 (Optional)" />
-                    </div>
-                    <button class="step4-update-btn" type="submit" style="margin: 18px auto 18px auto; width: 220px;">UPDATE</button>
-                </form>
-            @elseif($arrivalDetailsCompleted)
-                <div class="step4-form-box step4-summary-box" style="display: flex; align-items: center; justify-content: space-between; padding: 0 18px; min-height: 56px;">
-                    <div>
-                        @if($arrivalDetails['flight_number'])
-                            Flight: {{ $arrivalDetails['flight_number'] }}<br>
-                        @endif
-                        @if($arrivalDetails['user_defined_2'])
-                            User Field: {{ $arrivalDetails['user_defined_2'] }}
-                        @endif
-                    </div>
-                    <button type="button" class="btn btn-link" style="color: #888; border: 1px solid #cfd8dc; border-radius: 4px; padding: 4px 18px;" wire:click="editArrivalDetails">Edit</button>
+            <form class="step4-form-box" wire:submit.prevent="validateArrivalDetailsAndNext">
+                <div class="step4-form-group" style="position:relative;">
+                    <label class="step4-form-label">Flight number (if arriving at the airport) <span style="color:#bdbdbd; font-weight:400;">( Optional )</span></label>
+                    <input type="text" class="step4-form-input" wire:model.lazy="arrivalDetails.flight_number" placeholder="Flight number (Optional)" />
                 </div>
-            @endif
-    
+                <div class="step4-form-group" style="position:relative;">
+                    <label class="step4-form-label">User-Defined Field 2 <span style="color:#bdbdbd; font-weight:400;">( Optional )</span></label>
+                    <input type="text" class="step4-form-input" wire:model.lazy="arrivalDetails.user_defined_2" placeholder="User-Defined Field 2 (Optional)" />
+                </div>
+                <button class="step4-update-btn" type="submit" style="margin: 18px auto 18px auto; width: 220px;">UPDATE</button>
+            </form>
+        @elseif($arrivalDetailsCompleted)
+            <div class="step4-form-box step4-summary-box" style="display: flex; align-items: center; justify-content: space-between; padding: 0 18px; min-height: 56px;">
+                <div>
+                    @if($arrivalDetails['flight_number'])
+                        Flight: {{ $arrivalDetails['flight_number'] }}<br>
+                    @endif
+                    @if($arrivalDetails['user_defined_2'])
+                        User Field: {{ $arrivalDetails['user_defined_2'] }}
+                    @endif
+                </div>
+                <button type="button" class="btn btn-link" style="color: #888; border: 1px solid #cfd8dc; border-radius: 4px; padding: 4px 18px;" wire:click="editArrivalDetails">Edit</button>
+            </div>
+        @endif
+
             {{-- Marketing and Communication preferences section --}}
             <div class="step4-section-title">Marketing and Communication preferences</div>
             @if($step4Section === 'marketing')
@@ -782,8 +782,8 @@
                         <div style="display:flex; align-items:center; gap:8px;">
                             <input type="checkbox" id="marketing_opt_in" style="width:18px; height:18px;" wire:model.lazy="marketing.opt_in">
                             <label for="marketing_opt_in" style="margin:0; font-size:0.98em; color:#444;">Yes please. I would like to receive promotional offers and news from you.</label>
-                        </div>
-                    </div>
+        </div>
+    </div>
                     <button class="step4-update-btn" type="submit" style="margin: 18px auto 18px auto; width: 220px;">UPDATE</button>
                 </form>
             @elseif(isset($marketingCompleted) && $marketingCompleted)
@@ -850,13 +850,13 @@
          
         </div>
         <div class="col step4-summary-area px-4">
-            <div class="step4-summary-title">Ariane Resort</div>
-            <div class="step4-summary-dates">
-                {{ \Carbon\Carbon::parse($reservation['arrivalDate'])->format('M d') }} - {{ \Carbon\Carbon::parse($reservation['departureDate'])->format('M d') }}<br>
-                Confirmation # : {{ $reservation['confirmationNumber'] ?? '' }}
-            </div>
-            <img class="step4-summary-img" src="{{ asset('images/' . ($reservation['roomImage'] ?? 'ExecutiveBedroom.jpg')) }}" alt="Room">
-            <div class="step4-summary-nights">{{ $reservation['nrNights'] ?? 1 }} nights stay</div>
+        <div class="step4-summary-title">Ariane Resort</div>
+        <div class="step4-summary-dates">
+            {{ \Carbon\Carbon::parse($reservation['arrivalDate'])->format('M d') }} - {{ \Carbon\Carbon::parse($reservation['departureDate'])->format('M d') }}<br>
+            Confirmation # : {{ $reservation['confirmationNumber'] ?? '' }}
+        </div>
+        <img class="step4-summary-img" src="{{ asset('images/' . ($reservation['roomImage'] ?? 'ExecutiveBedroom.jpg')) }}" alt="Room">
+        <div class="step4-summary-nights">{{ $reservation['nrNights'] ?? 1 }} nights stay</div>
         </div>
     </div>
 </div>
