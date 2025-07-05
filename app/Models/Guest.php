@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Guest extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'reservation_number',
@@ -24,5 +25,12 @@ class Guest extends Model
         'paid_amount',
         'check_type',
         'payment_date',
+        'email',
+        'phone',
+        'country_code',
+        'address',
+        'city',
+        'state',
+        'zip_code',
     ];
 }

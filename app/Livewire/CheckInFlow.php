@@ -219,6 +219,13 @@ class CheckInFlow extends Component
             'paid_amount' => $paidAmount,
             'check_type' => 'checkin',
             'payment_date' => $now,
+            'email' => $this->contactInfo['email'] ?? null,
+            'phone' => $this->contactInfo['phone'] ?? null,
+            'country_code' => $this->contactInfo['phone_code'] ?? null,
+            'address' => $this->addressInfo['address1'] ?? null,
+            'city' => $this->addressInfo['city'] ?? null,
+            'state' => $this->addressInfo['state'] ?? null,
+            'zip_code' => $this->addressInfo['zip'] ?? null,
         ]);
         $this->isConfirmed = true;
         $this->step = 7;
@@ -247,6 +254,15 @@ class CheckInFlow extends Component
         }
         if (empty($this->lastName)) {
             $this->addError('lastName', 'Last name is required.');
+            return;
+        }
+        // تحقق من وجود Check-in سابق
+        $existing = \App\Models\Guest::where('reservation_number', $this->reservationNumber)
+            ->where('check_in_status', true)
+            ->whereNull('deleted_at')
+            ->first();
+        if ($existing) {
+            $this->addError('reservationNumber', 'You have already completed the check-in. Please contact the front desk and provide your reservation number: ' . $this->reservationNumber);
             return;
         }
         $this->loadReservations();

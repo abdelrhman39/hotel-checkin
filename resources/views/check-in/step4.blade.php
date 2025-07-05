@@ -648,7 +648,7 @@
                     </div>
                     <div class="step4-form-group @error('contactInfo.phone') is-invalid @enderror" style="flex:1.4; min-width:0; position:relative;">
                         <label class="step4-form-label">Phone</label>
-                        <input type="text" class="step4-form-input" wire:model.lazy="contactInfo.phone" maxlength="14" />
+                        <input type="tel" class="step4-form-input" wire:model.lazy="contactInfo.phone" maxlength="14" />
                         @error('contactInfo.phone')
                             <span class="input-error-icon" style="position:absolute; right:10px; top:65%; transform:translateY(-50%); color:#e53935;">&#9888;</span>
                         @enderror

@@ -18,5 +18,12 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        // Create default admin user
+        \App\Models\User::create([
+            'name' => 'Admin',
+            'email' => 'admin@hotel.com',
+            'password' => bcrypt('admin123'),
+        ]);
     }
 }
